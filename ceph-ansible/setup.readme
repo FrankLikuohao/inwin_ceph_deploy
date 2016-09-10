@@ -1,0 +1,67 @@
+首先自 github 抓最新版的 code 下來
+
+git clone https://github.com/ceph/ceph-ansible.git
+
+
+安裝必要套件
+
+cd ceph-ansible && sudo bash ./install-ansible.sh
+
+複製預設設定檔
+
+cp vagrant_variables.yml.sample vagrant_variables.yml
+
+參考設定檔
+
+---
+
+# DEFINE THE NUMBER OF VMS TO RUN
+mon_vms: 3
+osd_vms: 3
+mds_vms: 0
+rgw_vms: 1
+client_vms: 1
+
+# SUBNET TO USE FOR THE VMS
+subnet: 192.168.42
+
+# MEMORY
+memory: 1024
+
+# VAGRANT BOX
+# Fedora: http://download.fedoraproject.org/pub/fedora/linux/releases/test/22_Alpha/Cloud/x86_64/Images/Fedora-Cloud-Atomic-Vagrant-22_Alpha-20150305.x86_64.vsphere.ova
+# Ubuntu: ubuntu/trusty
+# CentOS: chef/centos-7.0
+# For more boxes have a look at:
+#   - ttps://atlas.hashicorp.com/boxes/search?utf8=✓&sort=&provider=virtualbox&q=
+#   - https://download.gluster.org/pub/gluster/purpleidea/vagrant/
+vagrant_box: ubuntu/trusty64
+
+
+
+修改 預設 playbook
+
+至 2015-06-09 為止，它的 playbook 仍是無法正常運作的。所以還是得自行修改它的 yml 避掉它的版本偵測。
+
+用你習慣的 editor 開啟  roles/ceph-mon/tasks/main.yml
+
+找到底下紅色標記的判斷式，將其移除，因為 ceph 已經為 0.94.1 版了
+- include: create_mds_filesystems.yml
+  when: not ceph_containerized_deployment and not {{ ceph_version.stdout | version_compare('0.84', '<') }} and mds
+
+改成
+  when: not ceph_containerized_deployment and mds
+
+同樣的檔案，另一處 ，移除 紅色的部分 
+
+- include: secure_cluster.yml
+  when: secure_cluster and {{ ceph_version.stdout | version_compare('0.94', '>=') }}
+
+
+最後執行 
+
+vagrant up 
+
+等待它完成
+
+我送 pull request 修掉了，現在大家只要記得先執行 install-ansible.sh 即可

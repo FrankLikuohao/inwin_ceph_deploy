@@ -1,0 +1,18 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 9.1.prepare_osd"
+echo 
+
+echo "input $hostname:data(:journal) ....."
+echo "ex:storage1:/dev/sdb(:/dev/sdd1)"
+		 read -e ANSWER 	 	 
+echo "ceph-deploy osd prepare $ANSWER"
+echo "ignore too many arguments"
+`ceph-deploy osd prepare $ANSWER`
+
+#splite $ANSWER out by ":" to get the first element for ssh 
+slpiteArrary=(${ANSWER//:/ })
+firsthost=${slpiteArrary[0]}
+
+ssh $firsthost "df -h"

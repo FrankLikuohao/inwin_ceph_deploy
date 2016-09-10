@@ -1,0 +1,16 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 5.remote sudo_setup"
+echo 
+echo "input hostname"
+	read host
+echo "input user name"
+	read user
+command="echo \"$user ALL = (root) NOPASSWD:ALL\" | sudo tee /etc/sudoers.d/$user"
+ssh -t $host "$command"
+command="sudo chmod 0440 /etc/sudoers.d/$user"
+ssh -t $host "$command"
+echo "result:"
+ssh -t $host "ls -al /etc/sudoers.d/$user"
+

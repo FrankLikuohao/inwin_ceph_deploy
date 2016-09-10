@@ -1,0 +1,27 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 9.3 create_osd"
+echo 
+
+echo "input $hostname:data(:journal) ...."
+echo "ex:storage1:/dev/sdb(:/dev/sdd1)"
+		 read -e ANSWER 	 	 
+echo "ceph-deploy osd create $ANSWER"
+
+for argument in $ANSWER
+do
+ceph-deploy disk zap $argument
+ceph-deploy osd create $argument
+
+#splite $ANSWER out by ":" to get the first element for ssh 
+slpiteArrary=(${argument//:/ })
+host=${slpiteArrary[0]}
+ssh $host "ps -aux | grep ceph ceph-osd"
+done
+
+
+
+
+
+

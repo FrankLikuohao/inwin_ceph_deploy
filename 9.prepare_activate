@@ -1,0 +1,19 @@
+#!/bin/bash
+. ./frank_common.sh
+echo 
+echo "exec 9.prepare_activate.sh"
+echo
+ANSWER=0
+while [ $ANSWER !=  "r" ]; do
+         more 9mainlist
+         echo "input no:"
+		 read ANSWER 
+		 if [ $ANSWER = 'r' ]; then
+			./0.auto-deploy.sh
+			exit 1
+		 fi		 		
+		command=`ls 	9.$ANSWER.*`
+		. $command
+		echo "previous action[$command ]"	
+		ANSWER=0 #reset the ANSWER	
+done    

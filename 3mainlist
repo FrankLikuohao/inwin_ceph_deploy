@@ -1,0 +1,6 @@
+in 3.ssh_server_copy_key
+1)service ssh restart
+2)ssh-keygen -t ecdsa
+3)ssh-copy-id a_host
+4)ssh test a_host
+r)return

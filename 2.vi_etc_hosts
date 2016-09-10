@@ -1,0 +1,14 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 2.vi_etc_hosts"
+echo
+#$vi /etc/hosts
+echo "vi /etc/hosts for all hosts"
+sudo vi /etc/hosts
+#hosts file content
+#172.20.150.1 deploy
+#172.20.150.10 storage0
+#172.20.150.11 storage1
+#172.20.150.12 storage2
+echo

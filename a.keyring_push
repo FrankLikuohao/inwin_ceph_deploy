@@ -1,0 +1,26 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 9.keyring push"
+echo 
+echo "input a host"
+		 read -e hosts 
+echo "remote host is $hosts"		
+ 	 
+ceph-deploy  --overwrite-conf admin $hosts 
+
+
+for x in $hosts 
+do
+#echo "> [$x]"
+ssh -t $x "sudo chmod +r /etc/ceph/ceph.client.admin.keyring"
+ssh -t $x "ls -al /etc/ceph/ceph.client.admin.keyring"
+done
+
+
+
+
+#keyring
+#ceph-deploy admin storage1 storgae2
+#remote host 
+#sudo chmod +r /etc/ceph/ceph.client.admin.keyring

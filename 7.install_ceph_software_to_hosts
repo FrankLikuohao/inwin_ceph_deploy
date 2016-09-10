@@ -1,0 +1,14 @@
+#!/bin/bash
+. ./frank_common.sh
+echo 
+echo "exec 7.install_ceph_software_to_hosts"
+echo
+
+echo "input hosts"
+		 read -e ANSWER 
+echo "remote hosts are $ANSWER"		 	 
+echo "ceph-deploy install  $ANSWER"
+echo "ignore too many arguments"
+
+ceph-deploy install $ANSWER
+

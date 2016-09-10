@@ -1,0 +1,20 @@
+*****FrankLi auto-ceph-deploy*********
+1)update deploy software             *
+2)vi /etc/hosts                      *
+---------setup ssh environment-------*
+3)ssh_server_copy_key.sh             *
+4)vim_root_ssh_config_setup          *
+5)sudo setup                         *
+--------built ceph ------------------*
+6)create a cluster                   *
+7)install ceph software to hosts     *
+8)create monitor                     *
+9)prepare and activate               *
+a)keyring push                       *
+b)check remote health                *
+--------destory ceph ----------------*
+c)create ceph fs                     *
+p)purge data & ceph program          *
+q)forget key                         *
+**************************************
+e)exit

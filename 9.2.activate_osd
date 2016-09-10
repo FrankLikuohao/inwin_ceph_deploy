@@ -1,0 +1,26 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 9.2 activate_osd"
+echo 
+
+echo "check  remote_host mount"
+	read hostname
+ssh $hostname "df -h"		
+
+
+echo "input $hostname:data(:journal) ...."
+echo "ex:storage1:/dev/sdb1(:/dev/sdd1)"
+		 read -e ANSWER 
+
+echo "ceph-deploy osd activate $ANSWER"
+echo "ignore too many arguments"
+`ceph-deploy osd activate $ANSWER`
+
+
+#splite $ANSWER out by ":" to get the first element for ssh 
+slpiteArrary=(${ANSWER//:/ })
+firsthost=${slpiteArrary[0]}		 
+
+ssh $firsthost "ps -aux | grep ceph"
+

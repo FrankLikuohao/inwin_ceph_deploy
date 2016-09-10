@@ -1,0 +1,14 @@
+#!/bin/bash 
+. ./frank_common.sh
+echo 
+echo "exec 4.vim_root_ssh_config_setup"
+echo 
+#$vim /etc/ssh/sshd_config
+echo "vim /etc/ssh/sshd_config"
+sudo vim /etc/ssh/sshd_config
+#sshd_config_content
+#PermitRootLogin without-password //將這行注釋
+echo "remark PermitRootLogin without-password"
+#PermitRootLogin yes  //增加這行
+echo "add PermitRootLogin yes"
+echo 

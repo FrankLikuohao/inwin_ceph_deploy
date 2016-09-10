@@ -1,0 +1,15 @@
+#!/bin/bash
+. ./frank_common.sh
+echo 
+echo "exec 6.create_a_cluster"
+echo
+local ANSWER
+echo "input monitor hosts"
+		 read -e ANSWER 
+echo "remote hosts are $ANSWER"		 	 
+echo "ceph-deploy new  $ANSWER"
+echo "ignore too many arguments"
+ceph-deploy new  $ANSWER
+
+#reset the muti-input to original input(otherwise return a lot of unknown command)
+ANSWER="6"

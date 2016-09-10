@@ -1,0 +1,24 @@
+#!/bin/bash
+. ./frank_common.sh
+echo 
+echo "exec 8.create_monitor"
+echo
+
+echo "input hosts"
+		 read -e hosts 
+echo "remote hosts are $hosts"		 	 
+echo "ceph-deploy mon create-initial $hosts"
+echo "ignore too many arguments"
+#ceph-deploy install $hosts
+#monitor
+ceph-deploy mon create-initial $hosts
+ceph-deploy gatherkeys $hosts
+echo
+echo "remote monitor process as follow:"
+for x in $hosts 
+do
+	echo "in host:[$x]"
+	ssh $x ps -aux | grep ceph-mon
+done
+
+echo

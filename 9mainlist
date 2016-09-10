@@ -1,0 +1,10 @@
+in 9.prepare activate osd 
+1)prepare osd 
+2)activate osd
+3)cerate osd (prepare and activate without SSD journal )
+4)identify ssd
+5)batch partition disk
+6)create all prepare_activate list  
+7)go (batch prepare and activate all hosts on list)
+z)zap ceph disk(not yet)
+r)return previous menu
